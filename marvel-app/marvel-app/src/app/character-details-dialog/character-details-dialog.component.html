@@ -1,0 +1,19 @@
+<p-dialog 
+  header="Detalhes do Personagem" 
+  [(visible)]="visible" 
+  [modal]="true" 
+  [style]="{ width: '50vw' }" 
+  (onHide)="closeDialog()"
+>
+  <ng-container *ngIf="character">
+    <div class="dialog-content">
+      <h2>{{ character.name }}</h2>
+      <p><strong>Descrição:</strong> {{ character.description || 'Descrição não disponível.' }}</p>
+      <img
+        [src]="character.thumbnail.path + '.' + character.thumbnail.extension"
+        [alt]="character.name"
+        style="max-width: 50%; height: auto;"
+      />
+    </div>
+  </ng-container>
+</p-dialog>

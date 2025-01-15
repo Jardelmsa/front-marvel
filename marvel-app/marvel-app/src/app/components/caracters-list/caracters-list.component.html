@@ -1,0 +1,60 @@
+<div class="container-principal">
+    <div class="search-bar">
+        <div>
+            <input 
+                pInputText
+                type="text" 
+                placeholder="Buscar personagens" 
+                (input)="search($event)" 
+                styleClass="w-full"/>
+        </div>
+      </div>
+      
+      <div style="display: flex; flex-direction:  row; justify-content: center;">
+       <div>
+        <p-table [value]="filteredCharacters" 
+                [tableStyle]="{ 'max-width': '80em' }" 
+                [loading]="loading"
+                [paginator]="true" 
+                [rows]="10" 
+                [rowsPerPageOptions]="[5, 10, 20]" 
+                [responsiveLayout]="'scroll'">
+
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Imagem</th>
+                <th>Ações</th>
+              </tr>
+            </ng-template>
+          
+            <ng-template pTemplate="body" let-character>
+              <tr>
+                <td>{{ character.name }}</td>
+                <td>
+                  {{ character.description || 'Descrição não disponível.' }}
+                </td>
+                <td>
+                  <img
+                    [src]="character.thumbnail.path + '.' + character.thumbnail.extension"
+                    [alt]="character.name"
+                    style="width: 50px; height: 50px;"
+                  />
+                </td>
+                <td>
+                  <p-button label="Detalhes" icon="pi pi-search" (click)="viewDetails(character)"></p-button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+
+          <app-character-details-dialog 
+                    [visible]="displayDialog" 
+                    [character]="selectedCharacter" 
+                    (onClose)="closeDialog()"
+                    ></app-character-details-dialog>
+       </div>
+      </div>
+</div>
+  
